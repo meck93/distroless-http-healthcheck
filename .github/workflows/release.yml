@@ -41,9 +41,6 @@ jobs:
       - name: run the security audit check
         run: cargo audit
 
-      - name: set the crate version
-        run: cargo install cargo-edit --bin cargo-set-version && cargo set-version ${{ env.VERSION }}
-
       - name: run the tests for x86_64 target
         run: cross test --target x86_64-unknown-linux-musl && cargo clean
 
@@ -53,7 +50,6 @@ jobs:
           cross build --target x86_64-unknown-linux-musl --release && mv ./target/x86_64-unknown-linux-musl/release/healthcheck ./binaries/healthcheck.x86_64
           cargo clean
           cross build --target aarch64-unknown-linux-musl --release && mv ./target/aarch64-unknown-linux-musl/release/healthcheck ./binaries/healthcheck.aarch64
-          cp ./binaries/healthcheck.x86_64 ./binaries/healthcheck
 
       - uses: docker/setup-qemu-action@v3
       - uses: docker/setup-buildx-action@v3
