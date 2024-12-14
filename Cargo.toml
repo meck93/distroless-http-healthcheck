@@ -1,6 +1,6 @@
 [package]
 name = "distroless-http-healthcheck"
-version = "0.2.0"
+version = "1.0.0"
 edition = "2021"
 authors = ["Moritz Eck <moritz.eck@gmail.com>"]
 description = "A tiny HTTP client for distroless container health checks."
