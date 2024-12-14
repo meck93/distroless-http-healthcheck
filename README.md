@@ -27,9 +27,9 @@ The binaries are published in the `ghcr.io/meck93/distroless-http-healthcheck` r
 See below for an examplary usage in a Dockerfile.
 
 ```dockerfile
-FROM ghcr.io/meck93/distroless-http-healthcheck:latest as healthcheck
+FROM ghcr.io/meck93/distroless-http-healthcheck:latest AS healthcheck
 
-FROM scratch as runner
+FROM scratch AS runner
 
 COPY --from=healthcheck /healthcheck /healthcheck
 
