@@ -1,0 +1,25 @@
+[package]
+name = "distroless-http-healthcheck"
+version = "0.1.0"
+edition = "2021"
+authors = ["Moritz Eck <moritz.eck@gmail.com>"]
+description = "A tiny HTTP client for distroless container health checks."
+readme = "README.md"
+repository = "https://github.com/meck93/distroless-http-healthcheck"
+license = "MIT"
+keywords = ["docker", "podman", "container", "healthcheck", "distroless", "http"]
+
+[[bin]]
+name = "healthcheck"
+path = "src/main.rs"
+
+[dependencies]
+minreq = "2.13.0"
+url = "2.5.4"
+
+[profile.release]
+strip = true
+opt-level = "z" # optimize for binary size, but also turn off loop vectorization.
+lto = true # link time optimization
+codegen-units = 1 # optimize for binary size
+panic = "abort" # abort on panic
