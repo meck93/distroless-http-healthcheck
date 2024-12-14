@@ -8,7 +8,7 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  build-and-test:
+  build-test-release:
     runs-on: ubuntu-latest
     environment: release
     permissions:
@@ -42,11 +42,9 @@ jobs:
       - run: curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
       - run: cargo binstall -y cross
       - run: cargo clippy
+      - run: cargo audit
 
-      - name: run the security audit check
-        run: cargo audit
-
-      - name: run the tests for x86_64 target
+      - name: sanity check - debug build and tests
         run: cross test --target x86_64-unknown-linux-musl && cargo clean
 
       - name: build the release binaries for x86_64 and aarch64
