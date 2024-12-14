@@ -4,7 +4,6 @@ on:
   workflow_dispatch:
 
 env:
-  VERSION: '0.1.${{ github.run_number }}'
   TZ: Europe/Zurich
   CARGO_TERM_COLOR: always
 
@@ -32,6 +31,12 @@ jobs:
             ~/.cargo/git/db/
             target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - run: cargo install cargo-get
+      - name: set the current release version
+        run: |
+          BASE_VERSION=$(cargo get package.version --major --minor --delimiter=".")
+          echo "VERSION=${BASE_VERSION}.${{ github.run_number }}" >> $GITHUB_ENV
 
       - run: sudo apt update && sudo apt install musl-tools -y
       - run: curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
@@ -80,7 +85,6 @@ jobs:
       - name: publish the release binaries as a part of the Github release
         run: |
           gh release create --latest \
-            -n "healthcheck (v${{ env.VERSION}}), compiled for target x86_64-unknown-linux-musl and aarch64-unknown-linux-musl" \
             -t "healthcheck v${{ env.VERSION}}" \
             ${{ env.VERSION }} \
             ./binaries/healthcheck*
