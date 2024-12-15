@@ -73,9 +73,9 @@ jobs:
             org.opencontainers.image.version=${{ env.VERSION }}
             org.opencontainers.image.ref.name=${{ github.ref_name }}
             org.opencontainers.image.revision=${{ github.sha }}
-            org.opencontainers.image.authors=https://github.com/meck93
+            org.opencontainers.image.authors=https://github.com/${{ github.repository_owner }}
             org.opencontainers.image.description=A tiny HTTP client for distroless container health checks.
-            org.opencontainers.image.url=https://github.com/meck93/distroless-http-healthcheck
+            org.opencontainers.image.url=https://github.com/${{ github.repository_owner }}/distroless-http-healthcheck
           tags: |
             ghcr.io/${{ github.repository_owner }}/distroless-http-healthcheck:latest
             ghcr.io/${{ github.repository_owner }}/distroless-http-healthcheck:${{ env.VERSION }}
