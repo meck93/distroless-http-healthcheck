@@ -48,9 +48,9 @@ fn get_timeout() -> u64 {
 
 #[inline]
 fn healthcheck(args: Vec<String>, timeout: u64) -> ExitCode {
-    if args.len() != 2 || args.get(1).map_or(false, |arg| arg == "help") {
+    if args.len() != 2 || args.get(1).is_some_and(|arg| arg == "help") {
         println!("{}", HELP_MESSAGE);
-        return if args.get(1).map_or(false, |arg| arg == "help") {
+        return if args.get(1).is_some_and(|arg| arg == "help") {
             ExitCode::from(0)
         } else {
             ExitCode::from(1)
