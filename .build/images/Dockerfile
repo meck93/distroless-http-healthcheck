@@ -9,7 +9,7 @@ COPY healthcheck.* ./binaries/
 RUN ls ./binaries && mv "./binaries/healthcheck.$(arch)" ./binaries/healthcheck
 
 # the final image is a scratch image, single layer which contains the healthcheck binary
-FROM --platform=$TARGETPLATFORMscratch AS runner
+FROM --platform=$TARGETPLATFORM scratch AS runner
 
 LABEL org.opencontainers.image.source=https://github.com/meck93/distroless-http-healthcheck
 LABEL org.opencontainers.image.description="A tiny HTTP client for distroless container health checks."
