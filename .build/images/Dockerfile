@@ -1,4 +1,4 @@
-FROM alpine:latest AS prepare-binaries
+FROM --platform=$TARGETPLATFORM alpine:latest AS prepare-binaries
 
 RUN mkdir ./binaries
 
@@ -9,7 +9,7 @@ COPY healthcheck.* ./binaries/
 RUN ls ./binaries && mv "./binaries/healthcheck.$(arch)" ./binaries/healthcheck
 
 # the final image is a scratch image, single layer which contains the healthcheck binary
-FROM scratch AS runner
+FROM --platform=$TARGETPLATFORMscratch AS runner
 
 LABEL org.opencontainers.image.source=https://github.com/meck93/distroless-http-healthcheck
 LABEL org.opencontainers.image.description="A tiny HTTP client for distroless container health checks."
