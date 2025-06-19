@@ -32,7 +32,7 @@ jobs:
             target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
-      - run: cargo install cargo-get
+      - run: which cargo-get ||cargo install cargo-get
       - name: set the current release version
         run: |
           BASE_VERSION=$(cargo get package.version --major --minor --delimiter=".")
