@@ -67,7 +67,8 @@ jobs:
           file: ${{ github.workspace }}/.build/images/Dockerfile
           context: ./binaries
           push: true
-          provenance: true
+          provenance: false
+          sbom: true
           labels: |
             org.opencontainers.image.source=https://github.com/${{ github.repository_owner }}/distroless-http-healthcheck
             org.opencontainers.image.version=${{ env.VERSION }}
